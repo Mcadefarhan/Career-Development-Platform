@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sign Up | SkillSprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#000;
+  font-family:Poppins;
+  color:#fff;
+  overflow:hidden;
+}
+
+/* SIGNUP BOX ENTRY ANIMATION */
+.box{
+  width:420px;
+  padding:40px;
+  border:1px solid #333;
+  border-radius:15px;
+
+  opacity:0;
+  transform:translateY(120px) scale(0.95);
+  animation:signupEntry 1.1s cubic-bezier(.22,.61,.36,1) forwards;
+}
+
+@keyframes signupEntry{
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+h2{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+label{
+  font-size:14px;
+  color:#ccc;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  margin:10px 0 20px;
+  background:#000;
+  border:1px solid #555;
+  border-radius:30px;
+  color:#fff;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  background:#b6a3ff;
+  border:none;
+  border-radius:30px;
+  font-size:16px;
+  cursor:pointer;
+  transition:transform 0.2s ease, background 0.2s ease;
+}
+button:hover{
+  background:#9f8cff;
+  transform:translateY(-2px);
+}
+
+p{
+  text-align:center;
+  margin-top:20px;
+  font-size:14px;
+}
+
+a{
+  color:#b6a3ff;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Create Account</h2>
+
+  <label>Full Name</label>
+  <input type="text" placeholder="Enter your name">
+
+  <label>Email or Mobile Number</label>
+  <input type="text" placeholder="Email or Mobile Number">
+
+  <label>Password</label>
+  <input type="password" placeholder="Create password">
+
+  <button>Sign Up</button>
+
+  <p>
+    Already a user?
+    <a href="login.html">Login here</a>
+  </p>
+</div>
+
+</body>
+</html>

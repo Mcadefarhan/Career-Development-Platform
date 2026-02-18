@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Courses | SkillSprint</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Poppins;
+}
+body{
+  background:#000;
+  color:#fff;
+}
+
+/* ================= NAVBAR ================= */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 60px;
+  position:fixed;
+  top:0;
+  width:100%;
+  background:rgba(0,0,0,0.9);
+  z-index:1000;
+}
+nav a{
+  color:#fff;
+  margin-left:30px;
+  text-decoration:none;
+}
+nav a:hover{color:#b6a3ff}
+
+/* ================= HEADER ================= */
+header{
+  padding:160px 60px 70px;
+  text-align:center;
+}
+header h1{font-size:52px;}
+header p{
+  color:#bbb;
+  margin-top:15px;
+  max-width:650px;
+  margin-inline:auto;
+}
+
+/* ================= COURSES GRID ================= */
+.courses{
+  padding:40px 60px 100px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:45px;
+}
+
+/* ================= COURSE CARD ================= */
+.course{
+  background:#0b0b0b;
+  border:1px solid #2a2a2a;
+  border-radius:20px;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(90px);
+  transition:all 0.45s ease;
+}
+.course.active{
+  opacity:1;
+  transform:translateY(0);
+}
+.course:hover{
+  transform:translateY(-10px);
+  border-color:#b6a3ff;
+  box-shadow:0 20px 50px rgba(182,163,255,0.15);
+}
+
+/* IMAGE */
+.course img{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+}
+
+/* CONTENT */
+.course-content{padding:28px;}
+.tag{
+  display:inline-block;
+  padding:6px 14px;
+  font-size:12px;
+  border-radius:20px;
+  background:#1b1b1b;
+  margin-bottom:18px;
+}
+.course h3{margin-bottom:12px;font-size:20px;}
+.course p{
+  color:#ccc;
+  font-size:14px;
+  line-height:1.6;
+  margin-bottom:22px;
+}
+.info{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  color:#aaa;
+  margin-bottom:22px;
+}
+.course button{
+  width:100%;
+  padding:13px;
+  border:none;
+  border-radius:25px;
+  background:#b6a3ff;
+  font-size:15px;
+  cursor:pointer;
+}
+.course button:hover{background:#9f8cff}
+
+/* ================= FOOTER ================= */
+.footer{
+  padding:0 80px 40px;
+}
+.footer-top-line,
+.footer-bottom-line{
+  height:1px;
+  background:#333;
+  margin:40px 0;
+}
+.footer-content{
+  display:grid;
+  grid-template-columns:1fr 1px 1fr;
+  gap:60px;
+}
+.footer-divider{
+  width:1px;
+  background:#333;
+}
+
+/* LEFT */
+.footer-left .brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:22px;
+  margin-bottom:40px;
+}
+.footer-left label{
+  font-size:14px;
+  color:#ccc;
+  display:block;
+  margin-bottom:10px;
+}
+.footer-left input{
+  width:100%;
+  padding:14px;
+  border-radius:30px;
+  border:1px solid #555;
+  background:#000;
+  color:#fff;
+  margin-bottom:20px;
+}
+.checkbox{
+  display:flex;
+  align-items:center;  
+  gap:12px;
+  font-size:14px;
+  color:#ccc;
+  margin-bottom:30px;
+}
+
+.checkbox input{
+  width:16px;
+  height:16px;
+  margin:0;           
+  flex-shrink:0;      
+}
+
+.checkbox span{
+  line-height:1.4;
+}
+
+.footer-left button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:30px;
+  background:#b6a3ff;
+  font-size:16px;
+}
+
+/* RIGHT */
+.footer-right{
+  display:flex;
+  justify-content:space-between;
+  gap:40px;
+}
+.footer-right p{font-size:15px;line-height:1.6;}
+.links{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.links a{
+  color:#fff;
+  text-decoration:none;
+}
+.links a:hover{color:#b6a3ff;}
+
+.footer span{color:#b6a3ff;}
+.copyright{
+  text-align:center;
+  font-size:14px;
+  color:#ccc;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:900px){
+  header{padding:140px 30px 50px}
+  .courses,.footer{padding:30px}
+  .footer-content{grid-template-columns:1fr}
+  .footer-divider{display:none}
+  .footer-right{flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ========== NAVBAR ========== -->
+<nav>
+  <strong>SkillSprint</strong>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Signup</a>
+  </div>
+</nav>
+
+<!-- ========== HEADER ========== -->
+<header>
+  <h1>Explore Our Courses</h1>
+  <p>Industry-ready courses designed for beginners and professionals.</p>
+</header>
+
+<!-- ========== COURSES ========== -->
+<section class="courses">
+
+  <!-- COURSE 1 -->
+  <div class="course">
+    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97">
+    <div class="course-content">
+      <span class="tag">Beginner</span>
+      <h3>Web Development</h3>
+      <p>HTML, CSS & JavaScript with modern projects.</p>
+      <div class="info"><span>⏱ 8 Weeks</span><span>⭐ 4.8</span></div>
+      <button>View Course</button>
+    </div>
+  </div>
+
+  <!-- COURSE 2 -->
+  <div class="course">
+    <img src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72">
+    <div class="course-content">
+      <span class="tag">Popular</span>
+      <h3>Python Programming</h3>
+      <p>Automation, scripting & problem solving.</p>
+      <div class="info"><span>⏱ 6 Weeks</span><span>⭐ 4.9</span></div>
+      <button>View Course</button>
+    </div>
+  </div>
+
+  <!-- COURSE 3 -->
+  <div class="course">
+    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c">
+    <div class="course-content">
+      <span class="tag">Advanced</span>
+      <h3>Full Stack Development</h3>
+      <p>Frontend, backend, APIs & real-world apps.</p>
+      <div class="info"><span>⏱ 12 Weeks</span><span>⭐ 4.7</span></div>
+      <button>View Course</button>
+    </div>
+  </div>
+
+  <!-- COURSE 4 -->
+  <div class="course">
+    <img src="https://images.unsplash.com/photo-1534751516642-a1af1ef26a56">
+    <div class="course-content">
+      <span class="tag">Trending</span>
+      <h3>Data Science</h3>
+      <p>Data analysis, visualization & ML basics.</p>
+      <div class="info"><span>⏱ 10 Weeks</span><span>⭐ 4.6</span></div>
+      <button>View Course</button>
+    </div>
+  </div>
+
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="footer-top-line"></div>
+
+  <div class="footer-content">
+    <div class="footer-left">
+      <div class="brand">
+        <span>✺</span>
+        <span>𝕊𝕜𝕚𝕝𝕝𝕊𝕡𝕣𝕚𝕟𝕥.</span>
+      </div>
+
+      <label>Email *</label>
+      <input type="email">
+
+      <div class="checkbox">
+        <input type="checkbox">
+        <span>Yes, subscribe me to your newsletter. *</span>
+      </div>
+
+      <button>Submit</button>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-right">
+      <div>
+        <p>7091987466</p>
+        <p>usmanghani@gmail.com</p><br>
+        <p>500 Terry Francine St.</p>
+        <p>San Francisco, CA 94158</p>
+      </div>
+
+      <div class="links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Accessibility Statement</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom-line"></div>
+
+  <p class="copyright">
+    © 2026 by 𝕊𝕜𝕚𝕝𝕝𝕊𝕡𝕣𝕚𝕟𝕥 Inc. Powered and secured by <span>Boom</span>
+  </p>
+</footer>
+
+<script>
+const cards=document.querySelectorAll('.course');
+window.addEventListener('scroll',()=>{
+  cards.forEach(card=>{
+    if(card.getBoundingClientRect().top<window.innerHeight-120){
+      card.classList.add('active');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
