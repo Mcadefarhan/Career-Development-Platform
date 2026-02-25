@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Python Course | SkillSprint</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:radial-gradient(circle at top, #111 0%, #000 60%);
+  color:#fff;
+}
+
+/* ===== NAVBAR ===== */
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 60px;
+  position:sticky;
+  top:0;
+  background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid #222;
+  z-index:1000;
+}
+
+nav strong{
+  font-size:20px;
+}
+
+nav a{
+  color:#fff;
+  margin-left:30px;
+  text-decoration:none;
+  font-size:15px;
+  transition:.3s;
+}
+nav a:hover{color:#b6a3ff}
+
+/* ===== MAIN LAYOUT ===== */
+.main{
+  display:flex;
+  min-height:calc(100vh - 80px);
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+  width:320px;
+  background:rgba(15,15,15,0.95);
+  border-right:1px solid #222;
+  padding:28px;
+  overflow-y:auto;
+}
+
+.sidebar h2{
+  font-size:22px;
+  margin-bottom:30px;
+}
+
+.chapter{
+  padding:16px 18px;
+  margin-bottom:14px;
+  border-radius:14px;
+  background:#111;
+  cursor:pointer;
+  position:relative;
+  transition:.35s;
+}
+
+.chapter::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  height:100%;
+  width:4px;
+  background:#b6a3ff;
+  border-radius:8px;
+  opacity:0;
+}
+
+.chapter:hover{
+  transform:translateX(6px);
+  background:#161616;
+}
+
+.chapter.active{
+  background:#b6a3ff;
+  color:#000;
+  font-weight:600;
+}
+.chapter.active::before{opacity:1}
+
+/* ===== CONTENT ===== */
+.content{
+  flex:1;
+  padding:50px;
+}
+
+.video-container{
+  max-width:950px;
+  margin:0 auto;
+  background:#0c0c0c;
+  border-radius:24px;
+  padding:22px;
+  border:1px solid #222;
+  box-shadow:0 30px 80px rgba(182,163,255,.12);
+}
+
+iframe{
+  width:100%;
+  height:520px;
+  border-radius:18px;
+}
+
+/* ===== ABOUT COURSE ===== */
+.about-course{
+  max-width:950px;
+  margin:45px auto 0;
+  background:#0c0c0c;
+  border:1px solid #222;
+  border-radius:24px;
+  padding:40px;
+  box-shadow:0 25px 60px rgba(182,163,255,.12);
+}
+
+.about-course h2{
+  font-size:26px;
+  margin-bottom:15px;
+}
+
+.about-course .desc{
+  color:#bbb;
+  line-height:1.7;
+  margin-bottom:35px;
+}
+
+.about-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:25px;
+}
+
+.about-card{
+  background:#111;
+  border:1px solid #222;
+  border-radius:18px;
+  padding:22px;
+  transition:.35s;
+}
+
+.about-card:hover{
+  transform:translateY(-6px);
+  border-color:#b6a3ff;
+}
+
+.about-card h4{
+  margin-bottom:14px;
+  font-size:16px;
+}
+
+.about-card ul{
+  list-style:none;
+}
+
+.about-card li{
+  color:#ccc;
+  font-size:14px;
+  margin-bottom:10px;
+  padding-left:18px;
+  position:relative;
+}
+
+.about-card li::before{
+  content:"•";
+  position:absolute;
+  left:0;
+  color:#b6a3ff;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .main{flex-direction:column}
+  .sidebar{width:100%}
+  .content{padding:25px}
+  iframe{height:320px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav>
+  <strong>𝕊𝕜𝕚𝕝𝕝𝕊𝕡𝕣𝕚𝕟𝕥</strong>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="courses.html">Courses</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- ===== SIDEBAR ===== -->
+  <div class="sidebar">
+    <h2>🐍 Python Programming</h2>
+
+    <div class="chapter active" onclick="changeVideo(this,'Y6J8I056Ffw')">
+      1. Python Introduction
+    </div>
+    <div class="chapter" onclick="changeVideo(this,'mrvBnZIEsZY')">
+      2. For Loop
+    </div>
+    <div class="chapter" onclick="changeVideo(this,'P-0w8xWcnDQ')">
+      3. While Loop
+    </div>
+    <div class="chapter" onclick="changeVideo(this,'H1elmMBnykA')">
+      4. Functions
+    </div>
+    <div class="chapter" onclick="changeVideo(this,'WGJJIrtnfpk')">
+      5. Lists & Tuples
+    </div>
+  </div>
+
+  <!-- ===== CONTENT ===== -->
+  <div class="content">
+
+    <!-- VIDEO -->
+    <div class="video-container">
+      <iframe id="videoPlayer"
+        src="https://www.youtube.com/embed/Y6J8I056Ffw"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- ABOUT COURSE -->
+    <div class="about-course">
+      <h2>About This Course</h2>
+      <p class="desc">
+        This Python Programming course is crafted for beginners who want
+        to build strong programming fundamentals. You will learn Python
+        concepts step-by-step with practical examples and real-world logic.
+      </p>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <h4>📚 What You’ll Learn</h4>
+          <ul>
+            <li>Python syntax & fundamentals</li>
+            <li>Loops, conditions & functions</li>
+            <li>Lists, tuples & data handling</li>
+            <li>Logical thinking with Python</li>
+          </ul>
+        </div>
+
+        <div class="about-card">
+          <h4>🎯 Who This Course Is For</h4>
+          <ul>
+            <li>Beginners with no coding background</li>
+            <li>Students & job aspirants</li>
+            <li>Anyone switching to tech</li>
+            <li>Future developers</li>
+          </ul>
+        </div>
+
+        <div class="about-card">
+          <h4>⏱ Course Details</h4>
+          <ul>
+            <li>Duration: 6–8 hours</li>
+            <li>Level: Beginner</li>
+            <li>Language: Hindi / English</li>
+            <li>Access: Lifetime</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function changeVideo(element, videoId){
+  document.getElementById("videoPlayer").src =
+    "https://www.youtube.com/embed/" + videoId;
+
+  document.querySelectorAll(".chapter")
+    .forEach(ch => ch.classList.remove("active"));
+
+  element.classList.add("active");
+}
+</script>
+
+</body>
+</html>
