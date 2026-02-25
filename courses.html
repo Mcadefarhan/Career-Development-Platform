@@ -20,6 +20,32 @@ body{
 }
 
 /* ================= NAVBAR ================= */
+nav input{
+  width:220px;
+  padding:10px 16px;
+  border-radius:25px;
+  border:1px solid #444;
+  background:#000;
+  color:#fff;
+  outline:none;
+  font-size:14px;
+  transition:.3s;
+}
+
+nav input::placeholder{
+  color:#777;
+}
+/* RIGHT NAV FIX */
+#navLinks{
+  display:flex;
+  align-items:center;
+  gap:28px;
+}
+
+nav input:focus{
+  border-color:#b6a3ff;
+  box-shadow:0 0 15px rgba(182,163,255,0.4);
+}
 nav{
   display:flex;
   justify-content:space-between;
@@ -30,6 +56,12 @@ nav{
   width:100%;
   background:rgba(0,0,0,0.9);
   z-index:1000;
+  transition:.3s;
+}
+nav.scrolled{
+  padding:12px 60px;
+  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,.75);
 }
 nav a{
   color:#fff;
@@ -38,7 +70,7 @@ nav a{
 }
 nav a:hover{color:#b6a3ff}
 
-
+/* ================= HEADER ================= */
 header{
   padding:160px 60px 70px;
   text-align:center;
@@ -66,17 +98,17 @@ header p{
   border-radius:20px;
   overflow:hidden;
   opacity:0;
-  transform:translateY(90px);
-  transition:all 0.45s ease;
+  transform:translateY(80px);
+  transition:opacity .6s ease, transform .6s ease;
 }
 .course.active{
   opacity:1;
   transform:translateY(0);
 }
 .course:hover{
-  transform:translateY(-10px);
+  transform:translateY(-8px);
   border-color:#b6a3ff;
-  box-shadow:0 20px 50px rgba(182,163,255,0.15);
+  box-shadow:0 20px 50px rgba(182,163,255,.15);
 }
 
 /* IMAGE */
@@ -84,10 +116,19 @@ header p{
   width:100%;
   height:190px;
   object-fit:cover;
+  transition:.6s;
 }
+.course:hover img{transform:scale(1.08);}
 
 /* CONTENT */
-.course-content{padding:28px;}
+.course-content{
+  padding:28px;
+  transition:.4s;
+}
+.course:hover .course-content{
+  transform:translateY(-6px);
+}
+
 .tag{
   display:inline-block;
   padding:6px 14px;
@@ -118,8 +159,13 @@ header p{
   background:#b6a3ff;
   font-size:15px;
   cursor:pointer;
+  transition:.3s;
 }
-.course button:hover{background:#9f8cff}
+.course button:hover{
+  background:#9f8cff;
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(182,163,255,.4);
+}
 
 /* ================= FOOTER ================= */
 .footer{
@@ -140,8 +186,6 @@ header p{
   width:1px;
   background:#333;
 }
-
-/* LEFT */
 .footer-left .brand{
   display:flex;
   align-items:center;
@@ -166,24 +210,11 @@ header p{
 }
 .checkbox{
   display:flex;
-  align-items:center;  
   gap:12px;
   font-size:14px;
   color:#ccc;
   margin-bottom:30px;
 }
-
-.checkbox input{
-  width:16px;
-  height:16px;
-  margin:0;           
-  flex-shrink:0;      
-}
-
-.checkbox span{
-  line-height:1.4;
-}
-
 .footer-left button{
   width:100%;
   padding:14px;
@@ -192,8 +223,6 @@ header p{
   background:#b6a3ff;
   font-size:16px;
 }
-
-/* RIGHT */
 .footer-right{
   display:flex;
   justify-content:space-between;
@@ -210,12 +239,33 @@ header p{
   text-decoration:none;
 }
 .links a:hover{color:#b6a3ff;}
-
 .footer span{color:#b6a3ff;}
 .copyright{
   text-align:center;
   font-size:14px;
   color:#ccc;
+}
+/* ===== PROFILE STYLE ===== */
+.profile{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-left:30px;
+  cursor:pointer;
+}
+
+.profile span{
+  font-size:15px;
+  font-weight:500;
+  color:#fff;
+}
+
+.profile img{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #b6a3ff;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -231,26 +281,34 @@ header p{
 
 <body>
 
-<!-- ========== NAVBAR ========== -->
+<!-- NAVBAR -->
 <nav>
   <strong>SkillSprint</strong>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="login.html">Login</a>
-    <a href="signup.html">Signup</a>
-  </div>
+  <input type="text" id="courseSearch" placeholder="Search courses...">
+
+  <div id="navLinks">
+  <a href="index.html">Home</a>
+  <a href="login.html" id="loginLink">Login</a>
+  <a href="signup.html" id="signupLink">Signup</a>
+
+  <!-- Profile (hidden by default) -->
+  <span id="userProfile" class="profile" style="display:none;">
+  <span id="userName">User</span>
+  <img id="userPhoto" src="" alt="Profile">
+</span>
+</div>
 </nav>
 
-<!-- ========== HEADER ========== -->
+<!-- HEADER -->
 <header>
   <h1>Explore Our Courses</h1>
   <p>Industry-ready courses designed for beginners and professionals.</p>
 </header>
 
-<!-- ========== COURSES ========== -->
+<!-- COURSES -->
 <section class="courses">
 
-  <!-- COURSE 1 -->
+  <!-- 1 -->
   <div class="course">
     <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97">
     <div class="course-content">
@@ -262,7 +320,7 @@ header p{
     </div>
   </div>
 
-  <!-- COURSE 2 -->
+  <!-- 2 -->
   <div class="course">
     <img src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72">
     <div class="course-content">
@@ -274,7 +332,7 @@ header p{
     </div>
   </div>
 
-  <!-- COURSE 3 -->
+  <!-- 3 -->
   <div class="course">
     <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c">
     <div class="course-content">
@@ -286,7 +344,7 @@ header p{
     </div>
   </div>
 
-  <!-- COURSE 4 -->
+  <!-- 4 -->
   <div class="course">
     <img src="https://images.unsplash.com/photo-1534751516642-a1af1ef26a56">
     <div class="course-content">
@@ -298,9 +356,81 @@ header p{
     </div>
   </div>
 
+  <!-- 5 -->
+  <div class="course">
+    <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f">
+    <div class="course-content">
+      <span class="tag">Beginner</span>
+      <h3>UI / UX Design</h3>
+      <p>Design modern interfaces using Figma & UX principles.</p>
+      <div class="info"><span>⏱ 5 Weeks</span><span>⭐ 4.7</span></div>
+      <button>View Course</button>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="course">
+    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c">
+    <div class="course-content">
+      <span class="tag">Popular</span>
+      <h3>Machine Learning</h3>
+      <p>Algorithms, models & real-world ML projects.</p>
+      <div class="info"><span>⏱ 9 Weeks</span><span>⭐ 4.8</span></div>
+      <button>View Course</button>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="course">
+    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692">
+    <div class="course-content">
+      <span class="tag">Trending</span>
+      <h3>Cloud Computing</h3>
+      <p>AWS, cloud architecture & deployment basics.</p>
+      <div class="info"><span>⏱ 7 Weeks</span><span>⭐ 4.6</span></div>
+      <button>View Course</button>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="course">
+    <img src="https://images.unsplash.com/photo-1600267165477-6d4cc741b379">
+    <div class="course-content">
+      <span class="tag">Advanced</span>
+      <h3>Cyber Security</h3>
+      <p>Ethical hacking, security tools & best practices.</p>
+      <div class="info"><span>⏱ 11 Weeks</span><span>⭐ 4.9</span></div>
+      <button>View Course</button>
+    </div>
+  </div>
+
+  <!-- 9 -->
+  <div class="course">
+    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085">
+    <div class="course-content">
+      <span class="tag">Beginner</span>
+      <h3>Java Programming</h3>
+      <p>Core Java, OOP concepts & backend foundations.</p>
+      <div class="info"><span>⏱ 6 Weeks</span><span>⭐ 4.5</span></div>
+      <button>View Course</button>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="course">
+    <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c">
+    <div class="course-content">
+      <span class="tag">Professional</span>
+      <h3>DevOps Engineering</h3>
+      <p>CI/CD, Docker, Kubernetes & automation.</p>
+      <div class="info"><span>⏱ 10 Weeks</span><span>⭐ 4.8</span></div>
+      <button>View Course</button>
+    </div>
+  </div>
+
 </section>
 
-<!-- ========== FOOTER ========== -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-top-line"></div>
 
@@ -347,15 +477,75 @@ header p{
 </footer>
 
 <script>
-const cards=document.querySelectorAll('.course');
+// Navbar scroll
 window.addEventListener('scroll',()=>{
-  cards.forEach(card=>{
-    if(card.getBoundingClientRect().top<window.innerHeight-120){
-      card.classList.add('active');
+  document.querySelector('nav')
+    .classList.toggle('scrolled',window.scrollY>60);
+});
+
+// Smooth reveal
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach((entry,i)=>{
+    if(entry.isIntersecting){
+      entry.target.style.transitionDelay=`${i*0.08}s`;
+      entry.target.classList.add('active');
     }
   });
+},{threshold:.15});
+
+document.querySelectorAll('.course')
+  .forEach(card=>observer.observe(card));
+</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { 
+  getAuth, 
+  onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+/* Firebase config */
+const firebaseConfig = {
+  apiKey: "AIzaSyBBb-HWoQ9TqwwkDk887G0oPeGvJo7hMfs",
+  authDomain: "skillsprint-a4eb3.firebaseapp.com",
+  projectId: "skillsprint-a4eb3",
+  storageBucket: "skillsprint-a4eb3.appspot.com",
+  messagingSenderId: "99219317801",
+  appId: "1:99219317801:web:85ed7c3b7d062a69216838"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+/* 🔐 AUTH STATE CHECK */
+onAuthStateChanged(auth, (user) => {
+  const loginLink = document.getElementById("loginLink");
+  const signupLink = document.getElementById("signupLink");
+  const userProfile = document.getElementById("userProfile");
+  const userName = document.getElementById("userName");
+  const userPhoto = document.getElementById("userPhoto");
+
+  if(user){
+    // hide login/signup
+    loginLink.style.display = "none";
+    signupLink.style.display = "none";
+
+    // show profile
+    userProfile.style.display = "flex";
+
+    // name
+    userName.textContent =
+      user.displayName || user.email.split("@")[0];
+
+    // photo
+    userPhoto.src =
+      user.photoURL ||
+      "https://ui-avatars.com/api/?name=" + userName.textContent;
+  }else{
+    loginLink.style.display = "inline-block";
+    signupLink.style.display = "inline-block";
+    userProfile.style.display = "none";
+  }
 });
 </script>
-
 </body>
 </html>

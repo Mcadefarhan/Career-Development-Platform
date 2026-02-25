@@ -269,7 +269,102 @@ copyright{
   opacity:1;
   transform:scale(1);
 }
+#userArea{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
 
+#userArea img{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:2px solid #b6a3ff;
+}
+
+#userArea span{
+  font-size:14px;
+}
+
+#userArea button{
+  padding:8px 14px;
+  border:none;
+  border-radius:20px;
+  background:#b6a3ff;
+  cursor:pointer;
+  font-size:13px;
+}
+/* ===== CONTACT MODAL ===== */
+.contact-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(6px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:.4s ease;
+  z-index:2000;
+}
+
+.contact-modal.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.contact-box{
+  background:#0b0b0b;
+  border:1px solid #333;
+  padding:40px;
+  width:420px;
+  border-radius:20px;
+  position:relative;
+  animation:pop .5s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.85);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+.contact-box h2{
+  margin-bottom:10px;
+}
+
+.contact-box p{
+  font-size:14px;
+  margin-bottom:25px;
+  color:#bbb;
+}
+
+.contact-box input,
+.contact-box textarea{
+  width:100%;
+  padding:14px;
+  margin-bottom:18px;
+  border-radius:30px;
+  border:1px solid #444;
+  background:#000;
+  color:#fff;
+}
+
+.contact-box textarea{
+  border-radius:18px;
+  resize:none;
+  height:120px;
+}
+
+.close-btn{
+  position:absolute;
+  top:18px;
+  right:20px;
+  font-size:18px;
+  cursor:pointer;
+  color:#aaa;
+}
+.close-btn:hover{color:#fff;}
 </style>
 </head>
 
@@ -278,18 +373,22 @@ copyright{
 <!-- NAV -->
 <nav>
   <strong>𝕊𝕜𝕚𝕝𝕝𝕊𝕡𝕣𝕚𝕟𝕥.</strong>
-  <div>
+
+  <!-- Guest Links -->
+  <div id="guestLinks">
     <a href="login.html">Login</a>
     <a href="signup.html">Signup</a>
     <a href="#contact">Contact</a>
   </div>
-</nav>
 
+  <!-- User Area -->
+  <div id="userArea" style="display:none;"></div>
+</nav>
 <!-- HERO -->
 <section class="hero" id="home">
   <h1 class="reveal active">Your Tech Journey<br>Starts Here</h1>
   <p class="reveal active">Empowering tech enthusiasts globally</p>
-  <button class="btn" onclick="window.location.href='signup.html'">
+  <button class="btn" id="getStartedBtn">
   Get Started
 </button>
 
@@ -378,7 +477,7 @@ copyright{
     </div>
   </div>
   <br><br>
-  <center><button class="btn">Get in Touch</button></center>
+  <center><button class="btn" onclick="openContact()">Get in Touch</button></center>
 </section>
 
 <!-- FAQ -->
@@ -465,6 +564,84 @@ window.addEventListener('scroll', () => {
   });
 });
 </script>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBBb-HWoQ9TqwwkDk887G0oPeGvJo7hMfs",
+  authDomain: "skillsprint-a4eb3.firebaseapp.com",
+  projectId: "skillsprint-a4eb3",
+  storageBucket: "skillsprint-a4eb3.firebasestorage.app",
+  messagingSenderId: "99219317801",
+  appId: "1:99219317801:web:85ed7c3b7d062a69216838"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+/* 🔐 AUTH CHECK */
+auth.onAuthStateChanged(user=>{
+  if(user){
+    // user logged in
+    document.getElementById("guestLinks").style.display="none";
+    document.getElementById("userArea").style.display="flex";
+
+    document.getElementById("userArea").innerHTML = `
+      <span>${user.displayName}</span>
+      <img src="${user.photoURL}">
+      <button onclick="logout()">Logout</button>
+    `;
+  }
+});
+
+/* 🚪 LOGOUT */
+function logout(){
+  auth.signOut().then(()=>{
+    window.location.reload();
+  });
+}
+const getStartedBtn = document.getElementById("getStartedBtn");
+
+auth.onAuthStateChanged(user => {
+  if(getStartedBtn){
+    if(user){
+      // ✅ Already logged in → Courses
+      getStartedBtn.onclick = () => {
+        window.location.href = "courses.html";
+      };
+      getStartedBtn.innerText = "Continue learning";
+    }else{
+      // ❌ Not logged in → Signup
+      getStartedBtn.onclick = () => {
+        window.location.href = "signup.html";
+      };
+      getStartedBtn.innerText = "Get Started";
+    }
+  }
+});
+function openContact(){
+  document.getElementById("contactModal").classList.add("active");
+}
+
+function closeContact(){
+  document.getElementById("contactModal").classList.remove("active");
+}
+</script>
+<!-- CONTACT MODAL -->
+<div id="contactModal" class="contact-modal">
+  <div class="contact-box">
+    <h2>Get in Touch</h2>
+    <p>We’d love to hear from you. Drop us a message</p>
+
+    <input type="text" placeholder="Your Name">
+    <input type="email" placeholder="Your Email">
+    <textarea placeholder="Your Message"></textarea>
+
+    <button class="btn">Send Message</button>
+    <span class="close-btn" onclick="closeContact()">✕</span>
+  </div>
+</div>
 </body>
 </html>

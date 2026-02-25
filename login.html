@@ -3,9 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Login | SkillSprint</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+*{ box-sizing:border-box; }
+
 body{
   margin:0;
   height:100vh;
@@ -13,43 +17,33 @@ body{
   justify-content:center;
   align-items:center;
   background:#000;
-  font-family:Poppins;
+  font-family:Poppins, sans-serif;
   color:#fff;
   overflow:hidden;
 }
 
-/* LOGIN BOX ENTRY */
 .box{
   width:420px;
   padding:40px;
   border:1px solid #333;
-  border-radius:15px;
-
+  border-radius:16px;
+  background:#000;
   opacity:0;
   transform:translateY(120px) scale(0.95);
   animation:loginEntry 1.1s cubic-bezier(.22,.61,.36,1) forwards;
 }
 
 @keyframes loginEntry{
-  to{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
+  to{ opacity:1; transform:translateY(0) scale(1); }
 }
 
-h2{
-  text-align:center;
-  margin-bottom:30px;
-}
+h2{text-align:center;margin-bottom:30px;}
 
-label{
-  font-size:14px;
-  color:#ccc;
-}
+label{font-size:13px;color:#bbb;}
 
 input{
   width:100%;
-  padding:14px;
+  padding:14px 18px;
   margin:10px 0 20px;
   background:#000;
   border:1px solid #555;
@@ -57,7 +51,9 @@ input{
   color:#fff;
 }
 
-button{
+input:focus{border-color:#b6a3ff;}
+
+.login-btn{
   width:100%;
   padding:14px;
   background:#b6a3ff;
@@ -65,23 +61,34 @@ button{
   border-radius:30px;
   font-size:16px;
   cursor:pointer;
-  transition:transform 0.2s ease;
 }
-button:hover{
-  background:#9f8cff;
-  transform:translateY(-2px);
-}
+.login-btn:hover{background:#9f8cff;}
 
-p{
+.or{
   text-align:center;
-  margin-top:20px;
-  font-size:14px;
+  margin:18px 0;
+  font-size:13px;
+  color:#777;
 }
 
-a{
-  color:#b6a3ff;
-  text-decoration:none;
+.google-btn{
+  width:100%;
+  padding:14px;
+  background:#fff;
+  color:#000;
+  border:none;
+  border-radius:30px;
+  font-size:15px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
 }
+.google-btn img{width:20px;}
+
+p{text-align:center;margin-top:22px;font-size:14px;color:#ccc;}
+a{color:#b6a3ff;text-decoration:none;}
 </style>
 </head>
 
@@ -90,19 +97,77 @@ a{
 <div class="box">
   <h2>Login</h2>
 
-  <label>Email or Mobile Number</label>
-  <input type="text" placeholder="Enter email or mobile number">
+  <label>Email</label>
+  <input id="email" type="email" placeholder="Enter email">
 
   <label>Password</label>
-  <input type="password" placeholder="Enter password">
+  <input id="password" type="password" placeholder="Enter password">
 
-  <button>Login</button>
+  <button class="login-btn" onclick="emailLogin()">Login</button>
+
+  <div class="or">— OR —</div>
+
+  <button class="google-btn" onclick="googleLogin()">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+    Continue with Google
+  </button>
 
   <p>
     New user?
     <a href="signup.html">Create an account</a>
   </p>
 </div>
+
+<!-- 🔥 FIREBASE AUTH -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+/* ✅ REAL FIREBASE CONFIG (SkillSprint) */
+const firebaseConfig = {
+  apiKey: "AIzaSyBBb-HWoQ9TqwwkDk887G0oPeGvJo7hMfs",
+  authDomain: "skillsprint-a4eb3.firebaseapp.com",
+  projectId: "skillsprint-a4eb3",
+  storageBucket: "skillsprint-a4eb3.appspot.com",
+  messagingSenderId: "99219317801",
+  appId: "1:99219317801:web:85ed7c3b7d062a69216838"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+/* EMAIL LOGIN */
+window.emailLogin = async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try{
+    await signInWithEmailAndPassword(auth, email, password);
+    alert("Login successful");
+    window.location.href = "index.html";
+  }catch(error){
+    alert(error.message);
+  }
+};
+
+/* GOOGLE LOGIN */
+const provider = new GoogleAuthProvider();
+
+window.googleLogin = async () => {
+  try{
+    await signInWithPopup(auth, provider);
+    alert("Google login successful");
+    window.location.href = "index.html";
+  }catch(error){
+    alert(error.message);
+  }
+};
+</script>
 
 </body>
 </html>
